@@ -1,0 +1,50 @@
+{% extends 'staff/base.html' %}
+
+{% block navbar %}
+  {% with page=4 %}
+    {{ block.super }}
+  {% endwith %}
+{% endblock %}
+
+{% block content %}
+<div class="container pt-3">
+  <h3>Danh mục quản lý phim</h3>
+  <div class="text-right mb-3">
+    <a href="" class="btn btn-primary">Thêm ngôn ngữ</a>
+  </div>
+  {% if movieshowList %}
+  <table class="table table-bordered">
+    <tr>
+      <td class="text-center">Phim</td>
+      <td class="text-center">Ngày trong tuần</td>
+      <td class="text-center">Giờ chiếu</td>
+      <td class="text-center">Phòng</td>
+      <td class="text-center">Thao tác</td>
+    </tr>
+    {% for m in movieshowList %}
+      <tr>
+        <td class="text-center">{{m.movie}}</td>
+        <td class="text-center">{{m.dayOfWeek}}</td>
+        <td class="text-center">{{m.time}}</td>
+        <td class="text-center">{{m.room}}</td>
+        <td class="text-center">
+          <a title="Chỉnh sửa" href=""> <i class="fas fa-edit"></i> </a> &nbsp;
+          <a title="Xóa" style="color: red;" href=""></a>
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p>Không có dữ liệu</p>
+  {% endif %}
+</div>
+<script>
+  function confirmDelete(a) {
+    var url = a.getAttribute('url');
+    if (confirm('Bạn có chắc chắn muốn xóa không?')) {
+      location.href = url;
+    }
+  }
+</script>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+/*base.html*/
+
+.footer .block-one ul{
+    list-style: none;
+}
+
+.footer .block-one ul li{
+    text-decoration: none;
+    
+}
+.title-item{
+    background-color: blue;
+}
+.footer{
+    background-color: rgb(71, 68, 68);
+}

@@ -1,0 +1,71 @@
+{% extends 'staff/base.html' %}
+
+{% block navbar %}
+  {% with page=3 %}
+    {{ block.super }}
+  {% endwith %}
+{% endblock %}
+
+{% block content %}
+<div class="container pt-3">
+  <h3>Danh mục ngôn ngữ</h3>
+  <div class="text-right mb-3">
+    <a href='' class="btn btn-primary">Thêm ngôn ngữ</a>
+  </div>
+  {%if movieList %}
+  <table class="table table-bordered">
+      <tr>
+          <td class="text-center">STT</td>
+          <td class="text-center">Mã</td>
+          <td class="text-center">Phim</td>
+          <td class="text-center">Nội Dung</td>
+          <td class="text-center">Thể Loại</td>
+          <td class="text-center">Ngôn Ngữ</td>
+          <td class="text-center">Ngày</td>
+          <td class="text-center">Thời lượng</td>
+          <td class="text-center">Giá vé</td>
+          <td class="text-center">Trạng thái</td>
+          <td class="text-center">Chức năng</td>
+      </tr>
+      {% for m in movieList %}
+        <tr>
+            <td class="text-center">{{ forloop.counter }}</td>
+            <td class="text-center">{{ m.code }}</td>
+            <td class="text-center">
+            <img style="width:100%" src="/{{m.image}}">
+            <br>
+            {{ m.name }}
+            </td>
+            <td>{{ m.description }}</td>
+            <td class="text-center">{{ m.category.name }}</td>
+            <td class="text-center">{{ m.language.name }}</td>
+            <td class="text-center">{{ m.duration }} phút</td>
+            <td class="text-center">{{ m.onDate|date:"d/m/Y" }}</td>
+            <td class="text-center">{{ m.price }} <small>₫</small></td>
+            <td class="text-center">
+            {% if m.upcoming %} Chưa chiếu {%else%} Đang chiếu {%endif%}
+            </td>
+            <td class="text-center">
+            <a title="Chỉnh sửa"href=''><i class="fas fa-edit"></i></a> &nbsp;
+            <a title="Xóa" style="color:red" href='#' onclick="confirmDelete(this)" url=''>
+                <i class="fas fa-trash"></i>
+            </a>
+            </td>
+        </tr>
+      {% endfor %}
+  </table>
+  {% else %}
+  <p>Không có dữ liệu</p>
+  {% endif %}
+</div>
+
+<script>
+  function confirmDelete(a) {
+    var url = a.getAttribute('url');
+    if (confirm('Bạn có chắc chắn muốn xóa không?')) {
+      location.href = url;
+    }
+  }
+</script>
+
+{% endblock %}
